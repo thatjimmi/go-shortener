@@ -1,6 +1,8 @@
 package model
 
 import (
+	"os"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -17,7 +19,7 @@ type Lenk struct {
 
 func Setup() {
 
-	dsn := "host=127.0.0.1 user=admin password=test dbname=admin port=5987 sslmode=disable"
+	dsn := os.Getenv("DATABASE_URL")
 
 	var err error
 	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
