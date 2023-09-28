@@ -3,6 +3,7 @@ package server
 import (
 	"lenk/model"
 	"lenk/utils"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -69,6 +70,14 @@ func SetupRoutes() {
 	router.Get("/api/lenks", getAllLenks)
 	router.Post("/api/lenks", createLenk)
 	router.Get("/:redirect", redirect)
+	router.Get("/env", func(c *fiber.Ctx) error {
+		return c.SendString("Hello, ENV! " + os.Getenv("TEST_ENV"))
+	})
 
-	router.Listen(":3000")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3000"
+	}
+
+	router.Listen("0.0.0.0:" + port)
 }
