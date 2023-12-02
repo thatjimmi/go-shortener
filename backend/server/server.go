@@ -70,9 +70,6 @@ func SetupRoutes() {
 	router.Get("/api/lenks", getAllLenks)
 	router.Post("/api/lenks", createLenk)
 	router.Get("/:redirect", redirect)
-	router.Get("/env", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, ENV! " + os.Getenv("TEST_ENV"))
-	})
 
 	port := os.Getenv("PORT")
 	if port == "" {
